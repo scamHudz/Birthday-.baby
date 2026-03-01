@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #ffe6f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    flex-direction: column;
+    text-align: center;
+  }
+  .hidden { display: none; }
+  h1 { font-size: 2em; color: #ff3399; margin-bottom: 20px; }
+  button {
+    padding: 12px 25px;
+    font-size: 1em;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  button:hover { transform: scale(1.1); }
+  .yes { background-color: #ff66b2; color: white; }
+  .no { background-color: #ffcccc; color: #990000; }
+  #birthday-message {
+    font-size: 1.1em;
+    margin-top: 20px;
+    color: #cc0066;
+    line-height: 1.5em;
+  }
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff66b2;
+    top: -10px;
+    animation: fall 3s linear infinite;
+  }
+  @keyframes fall {
+    0% { top: -10px; transform: rotate(0deg); }
+    100% { top: 100vh; transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<h1 id="question">Hi Baby Sayang 💖<br>Baby nak tak jadi girlfriend saya sampai tua? 🥺</h1>
+<div id="buttons">
+  <button class="yes" id="yesBtn">YA 💕</button>
+  <button class="no" id="noBtn">TIDAK 😜</button>
+</div>
+
+<div id="birthday-page" class="hidden">
+  <h1>Selamat Ulang Tahun Baby Sayang 🎂💖</h1>
+  <div id="birthday-message"></div>
+  <p>Forever with you ❤️</p>
+</div>
+
+<script>
+// Playful NO button
+document.getElementById("noBtn").addEventListener("click", () => {
+  alert("Eh, tak boleh pilih TIDAK 😝 Tapi tak apa, cuba lagi bila baby ready!");
+});
+
+// YES button logic
+document.getElementById("yesBtn").addEventListener("click", () => {
+  document.getElementById("buttons").classList.add("hidden");
+  document.getElementById("question").classList.add("hidden");
+  document.getElementById("birthday-page").classList.remove("hidden");
+  showBirthdayMessage();
+  createConfetti();
+});
+
+// Typing animation for birthday message
+const message = `Baby sayanggg, baby antara wanita paling amazing dalam hidup sayang. Bila sayang kenal baby, sayang rasa tenang dan rasa semua benda baik tu wujud dalam diri baby. Terima kasih sebab jadi diri baby yang penuh kelembutan dan kebaikan tu. Sayang doakan semua impian dan hajat baby jadi kenyataan. Sayang nak baby tahu, semua kebaikan yang baby dah buat selama ni, semuanya akan kembali pada baby berlipat kali ganda. Baby memang layak untuk semua benda yang indah dalam dunia ni. I'm lucky to have you, babyyy 💖`;
+
+function showBirthdayMessage() {
+  const container = document.getElementById("birthday-message");
+  let index = 0;
+  const interval = setInterval(() => {
+    container.innerHTML += message[index];
+    index++;
+    if (index >= message.length) clearInterval(interval);
+  }, 40);
+}
+
+// Confetti function
+function createConfetti() {
+  for (let i = 0; i < 50; i++) {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+    confetti.style.animationDuration = 2 + Math.random() * 2 + "s";
+    document.body.appendChild(confetti);
+  }
+}
+</script>
+
+</body>
+</html>
